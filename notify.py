@@ -1,5 +1,6 @@
 from win10toast import ToastNotifier
 
-toaster = ToastNotifier()
+def notification(city):
+    toaster = ToastNotifier()
 
-toaster.show_toast("Sample Notification","Python is awesome!!!")
+    toaster.show_toast("Kujdes",f"Ajri shume i ndotur ne {city}")
