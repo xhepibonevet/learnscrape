@@ -26,20 +26,22 @@ def retrieve_cities_list():
             "aqi": columns[3].text
         }
         cities.append(stats)
-        return cities
+    return cities
 
-def write_xl():
+@app.command()
+def write_xl(filename: str):
     df = pd.DataFrame(retrieve_cities_list())
-    writer = pd.ExcelWriter(BASE + '\\state.xlsx', engine='xlsxwriter')
-
+    writer = pd.ExcelWriter(BASE + f'\\{filename}.xlsx', engine='xlsxwriter')
     df.to_excel(writer, sheet_name='Sheet 1', index=False)
     writer.save()
 
-def notify(qyteti):
+@app.command()
+def notify(qyteti: str):
     for city in retrieve_cities_list():
         if qyteti == city.get('city'):
             if int(city.get('aqi')) >= 100:
                 notification(qyteti)
+                break
 
 if __name__ == "__main__":
     app()
